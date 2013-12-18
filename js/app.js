@@ -63,7 +63,7 @@
     },
 
     showTweets: function() {
-      Controller._showTweets();
+      Controller.showTweets();
     },
 
     // metodo privado para acortar a 40 los caracteres provenientes de la API
@@ -155,14 +155,14 @@
         App.reqres.setHandler('tweets', function() {
           return tweets;
         });
-        self._showTweets(9);
+        self.showTweets(9);
       });
     },
 
     /* Metodo privado que se ejecuta inmediatamente despues de recibirse los
      * datos del API
      */
-    _showTweets: function(setTweets) {
+    showTweets: function(setTweets) {
       var tweets = App.reqres.request('tweets');
       var proxy = new Backbone.Obscura(tweets);
       proxy.setPerPage(setTweets);
