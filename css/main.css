@@ -1,0 +1,156 @@
+h1, h2, h3 {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #DDD;
+  font-family: Arial;
+}
+
+#wrapper {
+  width: 90%;
+  margin: 0 auto;
+}
+
+header {
+  width: 100%;
+  text-align: center;
+}
+
+header div {
+  width: 60%;
+  margin: 0 auto;
+}
+
+header h1, header form {
+  display: inline-block;
+}
+
+header h1 {
+  position: relative;
+    top: 5px;
+  color: #333;
+  text-shadow: 1px 1px 1px rgba(150, 150, 150, 0.39);
+}
+
+header form .custom-button {
+  border:1px solid #cacaca;
+  cursor: pointer;
+  color: #DDD;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  font-size:12px;
+  font-family:arial, helvetica, sans-serif;
+  text-decoration:none;
+  display:inline-block;
+  font-weight:bold; color: #FFFFFF;
+  padding: 6px;
+  width: 30%;
+  background-color: #E6E6E6; background-image: -webkit-gradient(linear, left top, left bottom, from(#E6E6E6), to(#CCCCCC));
+  background-image: -webkit-linear-gradient(top, #E6E6E6, #CCCCCC);
+  background-image: -moz-linear-gradient(top, #E6E6E6, #CCCCCC);
+  background-image: -ms-linear-gradient(top, #E6E6E6, #CCCCCC);
+  background-image: -o-linear-gradient(top, #E6E6E6, #CCCCCC);
+  background-image: linear-gradient(to bottom, #E6E6E6, #CCCCCC);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#E6E6E6, endColorstr=#CCCCCC);
+}
+
+header form input {
+  height: 30px;
+  width: 60%;
+  border: 1px solid #CCC;
+  border-radius: 10px;
+  color: #333;
+  padding: 0 10px;
+}
+
+header form input:focus {
+  outline: none;
+}
+
+.tweet {
+  width: 30%;
+  position: relative;
+  display: inline-block;
+  list-style: none;
+  margin-right: 3%;
+  margin-bottom: 60px;
+  
+}
+
+.tweet .name {
+  display: inline-block;
+  width: 75%;
+  color: #DDD;
+}
+
+.tweet .main {
+  width: 100%;
+  display: inline-block;
+  background: #FFF;
+  border-radius: 10px;
+  padding: 10px;
+  -webkit-box-shadow: 1px 1px 5px rgba(50, 50, 50, 0.75);
+}
+
+.tweet .more {
+  width: 90%;
+  height: 150px;
+  display: none;
+  background: #4099FF;
+  position: absolute;
+  color: #FFF;
+  overflow: hidden;
+  z-index: 1;
+  padding: 10px;
+  left: 3%;
+}
+
+.more-details {
+  display: inline-block!important;
+}
+
+.tweet .more p {
+  font-size: .9rem;
+  text-align: center;
+}
+
+.tweet .show {
+  text-align: right;
+}
+
+.tweet .show small {
+  color: #4099FF;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.close {
+  color: #FFF!important;
+}
+
+.tweet div h2 {
+  font-size: 1.3rem;
+  font-weight: normal;
+  color: #444;
+}
+
+.tweet div h3 {
+  color: #838383;
+  font-size: .8rem;
+  font-weight: normal;
+}
+
+.tweet img {
+  border-radius: 10px;
+}
+
+.tweet .main p {
+  height: 30px;
+  border-top: 1px solid #CCC;
+  border-bottom: 1px solid #CCC;
+  color: #999;
+  font-size: .9rem;
+  padding: 10px 0;
+}

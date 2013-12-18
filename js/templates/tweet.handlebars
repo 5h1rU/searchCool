@@ -1,0 +1,21 @@
+<section class="main">
+  <img src="{{user.profile_image_url}}">
+  {{! etiqueta hgroup fue removida de las especificaciones html5 
+      se usa div para este caso
+  }}
+  <div class="name">
+    <h2>{{user.name}}</h2>
+    <h3>@{{user.screen_name}}</h3>
+  </div>
+  <p>{{shortText}}...</p>
+  <div class="show">
+    <small>View More</small>
+  </div>
+</section>
+<section class="more">
+  <p>{{created_at}}</p>
+  <p>{{text}}</p>
+  <div class="show">
+    <small class="close">Cerrar</small>
+  </div>
+</section>
