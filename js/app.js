@@ -25,19 +25,21 @@
 
   });
 
-  // Se declara el nombre de la aplicacion para instancia posterior
+  /**
+   * Se declara el nombre de la aplicacion para instancia posterior
+   */
   var App = new Backbone.Marionette.Application();
 
-  //Itemview para contener cada tweet
+  /**
+   * Itemview para contener cada tweet
+   */
   var TweetView = Backbone.Marionette.ItemView.extend({
     tagName: 'li',
     className: 'tweet',
     template: 'templates/tweet',
     text: null,
-    flag: false,
     events: {
-      'click .show' : 'show'
-      //'scroll window': 'showMore'
+      'click .show' : '_show'
     },
     ui: {
       'more': '.more',
@@ -47,26 +49,28 @@
     initialize: function(options) {
       this.text = options.model.toJSON().text;
       this._limitCharacter();
-      this.showMore();
-      this.on('finish', this.showTweets, this);
+      this._showMore();
+      this.on('finish', this._showTweets, this);
     },
 
-    show: function() {
+    _show: function() {
       this.ui.more.toggleClass('more-details');
     },
 
-    showMore: function() {
+    _showMore: function() {
       var self = this;
       this.ui.window.smack({ threshold: 0.8 }).done(function () {
         self.trigger('finish');
       });
     },
 
-    showTweets: function() {
+    _showTweets: function() {
       Controller.showTweets();
     },
 
-    // metodo privado para acortar a 40 los caracteres provenientes de la API
+    /**
+     * metodo privado para acortar a 40 los caracteres provenientes de la API
+     */
     _limitCharacter: function () {
       return this.text.substring(0,40);
     },
@@ -78,7 +82,9 @@
     }
   });
 
-  //Itemview para contener formulario de busqueda
+  /**
+   * Itemview para contener formulario de busqueda
+   */
   var SearchView = Backbone.Marionette.ItemView.extend({
     template: 'templates/search',
 
@@ -100,13 +106,24 @@
     }
   });
 
-  // Contenedor de cada modelo, se hace render de la coleccion
+  /**
+   * Carga el spinner mientras se carga la consulta a la API
+   */
+  var LoadingView = Backbone.Marionette.Itemview.extend({
+    template: 'templates/loading'
+  });
+
+  /**
+   * Contenedor de cada modelo, se hace render de la coleccion
+   */
   var TweetsView = Backbone.Marionette.CollectionView.extend({
     tagName: 'ul',
     itemView: TweetView
   });
 
-  // Layout de vistas contenedor de regiones
+  /**
+   * Layout de vistas contenedor de regiones
+   */
   var AppLayout = Backbone.Marionette.Layout.extend({
     template: 'templates/layout',
 
@@ -120,13 +137,15 @@
    * Evento que escucha la inicializacion de la aplicacion se instancian los
    * metodos del controlador para mostrar en pantalla los datos 
    */
-  App.on('start', function(options) {
+  App.addInitializer(function(options) {
     Controller.showLayout();
     Controller.getTweets();
     Controller.searchTweets();
   });
 
-  // Controlador para manejar el flujo de la aplicacion
+  /**
+   * Controlador para manejar el flujo de la aplicacion
+   */
   var Controller = {
 
     /**
@@ -135,11 +154,18 @@
      */
     layout : new AppLayout(),
 
-    // Muestra en pantalla el layout
+    /**
+     * Muestra en pantalla el layout
+     */
     showLayout: function() {
       this.layout.render();
       $('#wrapper').append(this.layout.el);
-    },  
+    },
+
+    showLoading: function() {
+      var loadingView = new LoadingView();
+      return this.layout.tweetsRegion.show(loadingView);
+    }
 
     /**
      * Se obtienen los datos provenientes del API se instancia la coleccion
@@ -149,7 +175,8 @@
     getTweets: function(searchValue) {
       var self = this,
         tweets = new Tweets();
-
+      // Se necesita probar codigo, hecho en el avión = sin conexión a internet
+      this.showLoading();
       tweets.query = searchValue || 'colombia';
       tweets.fetch().then(function() {
         App.reqres.setHandler('tweets', function() {
@@ -159,7 +186,8 @@
       });
     },
 
-    /* Metodo privado que se ejecuta inmediatamente despues de recibirse los
+    /**
+     * Metodo privado que se ejecuta inmediatamente despues de recibirse los
      * datos del API
      */
     showTweets: function(setTweets) {
@@ -170,14 +198,18 @@
       return this.layout.tweetsRegion.show(tweetsView);
     },
     
-    //Muestra en pantalla el formulario de busqueda
+    /**
+     * Muestra en pantalla el formulario de busqueda
+     */
     searchTweets: function() {
       var search = new SearchView();
       return this.layout.searchRegion.show(search);
     }
   };
   
-  //Inicia la aplicacion
+  /**
+   * Inicia la aplicacion
+   */
   App.start();
 
 })(jQuery);
