@@ -109,7 +109,7 @@
   /**
    * Carga el spinner mientras se carga la consulta a la API
    */
-  var LoadingView = Backbone.Marionette.Itemview.extend({
+  var LoadingView = Backbone.Marionette.ItemView.extend({
     template: 'templates/loading'
   });
 
@@ -165,7 +165,7 @@
     showLoading: function() {
       var loadingView = new LoadingView();
       return this.layout.tweetsRegion.show(loadingView);
-    }
+    },
 
     /**
      * Se obtienen los datos provenientes del API se instancia la coleccion
@@ -187,14 +187,14 @@
     },
 
     /**
-     * Metodo privado que se ejecuta inmediatamente despues de recibirse los
+     * Metodo que se ejecuta inmediatamente despues de recibirse los
      * datos del API
      */
     showTweets: function(setTweets) {
-      var tweets = App.reqres.request('tweets');
-      var proxy = new Backbone.Obscura(tweets);
+      var tweets = App.reqres.request('tweets'),
+        proxy = new Backbone.Obscura(tweets),
+        tweetsView = new TweetsView({collection: proxy});
       proxy.setPerPage(setTweets);
-      var tweetsView = new TweetsView({collection: proxy});
       return this.layout.tweetsRegion.show(tweetsView);
     },
     
