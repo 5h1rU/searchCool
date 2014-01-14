@@ -15,8 +15,8 @@
     model: Tweet,
 
     url: function() {
-      var count = 9;
-      return 'php/req.php?q='+this.query+'&count=100';
+      var count = 100;
+      return 'php/req.php?q=' + this.query + '&count=' + count;
     },
 
     parse : function(response) {
